@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kolik byste platili za nájem, kdybyste byli radnice? | Referendum Praha 4</title>
+<meta property="og:title" content="Kolik byste platili za nájem, kdybyste byli radnice?">
+<meta property="og:description" content="Radnice Prahy 4 platí 835 Kč za m² měsíčně. Vypočítejte si, kolik byste platili vy. #milýJardo">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://janzacekTNTG.github.io/milyjardo/">
+<meta property="og:image" content="https://janzacekTNTG.github.io/milyjardo/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kolik byste platili za nájem, kdybyste byli radnice?">
+<meta name="twitter:description" content="Radnice Prahy 4 platí 835 Kč za m² měsíčně. Vypočítejte si, kolik byste platili vy. #milýJardo">
+<link rel="canonical" href="https://janzacekTNTG.github.io/milyjardo/">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #0f172a;
+    color: white;
+    min-height: 100vh;
+  }
+
+  /* Hero section */
+  .hero {
+    background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+    padding: 48px 24px 32px;
+    text-align: center;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: #e53e3e;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 6vw, 44px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: #f6ad55;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.6);
+    max-width: 500px;
+    margin: 0 auto 8px;
+    line-height: 1.4;
+  }
+
+  /* Calculator */
+  .calc-section {
+    background: #1e293b;
+    padding: 40px 24px;
+  }
+
+  .calc-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 36px 32px;
+  }
+
+  .calc-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .input-row input {
+    width: 120px;
+    padding: 14px 16px;
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    color: white;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .input-row input:focus {
+    border-color: #f6ad55;
+  }
+
+  .input-row .unit {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .calc-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #e53e3e, #c53030);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .calc-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(229, 62, 62, 0.3);
+  }
+
+  /* Result section (hidden initially) */
+  .result-section {
+    display: none;
+    background: #0f172a;
+    padding: 40px 24px;
+    text-align: center;
+  }
+
+  .result-section.visible { display: block; }
+
+  .result-card {
+    max-width: 500px;
+    margin: 0 auto 32px;
+  }
+
+  .result-intro {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 8px;
+  }
+
+  .result-number {
+    font-size: clamp(48px, 10vw, 72px);
+    font-weight: 900;
+    color: #fc8181;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .result-unit {
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 24px;
+  }
+
+  .result-comparison {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .comp-box {
+    flex: 1;
+    padding: 20px 16px;
+    border-radius: 14px;
+    text-align: center;
+  }
+
+  .comp-box.bad {
+    background: rgba(229, 62, 62, 0.12);
+    border: 1px solid rgba(229, 62, 62, 0.25);
+  }
+
+  .comp-box.good {
+    background: rgba(5, 150, 105, 0.12);
+    border: 1px solid rgba(5, 150, 105, 0.25);
+  }
+
+  .comp-box .comp-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 6px;
+  }
+
+  .comp-box .comp-value {
+    font-size: 28px;
+    font-weight: 900;
+  }
+
+  .comp-box.bad .comp-value { color: #fc8181; }
+  .comp-box.good .comp-value { color: #68d391; }
+
+  .comp-box .comp-detail {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+
+  .result-message {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .result-submessage {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  /* Divider */
+  .divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #e53e3e, #f6ad55);
+    border-radius: 2px;
+    margin: 0 auto 32px;
+  }
+
+  /* CTA section */
+  .cta-section {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .cta-primary {
+    display: block;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #e53e3e, #c53030);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(229, 62, 62, 0.3);
+  }
+
+  .cta-secondary {
+    display: block;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    background: transparent;
+    color: #f6ad55;
+    border: 2px solid #f6ad55;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .cta-secondary:hover {
+    background: rgba(246, 173, 85, 0.1);
+  }
+
+  /* Email signup */
+  .email-section {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 32px 0;
+    text-align: center;
+  }
+
+  .email-section h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .email-section p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+  }
+
+  .cta-email-btn {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    background: #f6ad55;
+    color: #0f172a;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .cta-email-btn:hover { opacity: 0.9; }
+
+  /* Share section */
+  .share-section {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 32px 0 16px;
+    text-align: center;
+  }
+
+  .share-section h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .share-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    transition: opacity 0.2s;
+  }
+
+  .share-btn:hover { opacity: 0.9; }
+  .share-btn.fb { background: #1877f2; }
+  .share-btn.wa { background: #25d366; }
+  .share-btn.copy { background: rgba(255,255,255,0.15); }
+
+  /* Hashtag highlight */
+  .hashtag-banner {
+    text-align: center;
+    padding: 24px;
+    background: rgba(246, 173, 85, 0.08);
+    border-top: 1px solid rgba(246, 173, 85, 0.15);
+    border-bottom: 1px solid rgba(246, 173, 85, 0.15);
+  }
+
+  .hashtag-banner span {
+    font-size: 28px;
+    font-weight: 900;
+    color: #f6ad55;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    color: rgba(255,255,255,0.3);
+    font-size: 13px;
+  }
+
+  .footer a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+  }
+
+  /* Phone number */
+  .phone-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 10px 18px;
+    margin-top: 16px;
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .phone-badge strong {
+    color: white;
+  }
+
+  /* Responsive */
+  @media (max-width: 540px) {
+    .hero { padding: 32px 20px 24px; }
+    .calc-section { padding: 28px 20px; }
+    .calc-card { padding: 28px 20px; }
+    .result-comparison { flex-direction: column; }
+    .email-form { flex-direction: column; }
+    .result-section { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Referendum Praha 4</div>
+  <h1>Kolik byste platili za&nbsp;nájem, kdybyste byli <em>radnice</em>?</h1>
+  <p class="hero-sub">Radnice Prahy 4 platí 835 Kč za m² měsíčně. Kolik by to bylo za váš byt?</p>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calc-section">
+  <div class="calc-card">
+    <div class="calc-label">Zadejte velikost vašeho bytu</div>
+    <div class="input-row">
+      <input type="number" id="sqmInput" value="" placeholder="90" min="10" max="500" autofocus>
+      <span class="unit">m²</span>
+    </div>
+    <button class="calc-btn" onclick="calculate()">Vypočítat můj „radniční nájem"</button>
+  </div>
+</div>
+
+<!-- RESULT (hidden) -->
+<div class="result-section" id="resultSection">
+  <div class="result-card">
+    <div class="result-intro">Za váš byt (<span id="resSqm">90</span> m²) byste platili</div>
+    <div class="result-number" id="resRent">75 150</div>
+    <div class="result-unit">Kč měsíčně</div>
+
+    <div class="result-comparison">
+      <div class="comp-box bad">
+        <div class="comp-label">Radniční nájem</div>
+        <div class="comp-value" id="resRentSmall">75 150 Kč</div>
+        <div class="comp-detail">835 Kč/m² × <span id="resSqm2">90</span> m²</div>
+      </div>
+      <div class="comp-box good">
+        <div class="comp-label">Průměrná hypotéka</div>
+        <div class="comp-value">17 000 Kč</div>
+        <div class="comp-detail">průměrná splátka v ČR</div>
+      </div>
+    </div>
+
+    <div class="result-message">To je <span id="resMultiple">4,4</span>× víc než průměrná hypotéka.</div>
+    <div class="result-submessage">A přesně tolik platí Praha 4 za pronájem budovy, ve které se nedá ani oddávat. Celkem už zaplatila přes <strong style="color:white">1,1 miliardy Kč</strong>.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Chcete to změnit?</h2>
+    <div class="cta-buttons">
+      <a href="https://www.prvnireferendumvpraze4.cz" class="cta-primary" target="_blank">Stáhnout podpisový arch a podepsat</a>
+      <a href="https://www.prvnireferendumvpraze4.cz" class="cta-secondary" target="_blank">Chci více informací</a>
+      <a href="tel:+420604820574" class="cta-secondary">Mobilní sběr: 604 820 574</a>
+    </div>
+  </div>
+
+  <!-- EMAIL SIGNUP — redirect to Wix -->
+  <div class="email-section">
+    <h3>Chcete dostávat novinky o referendu?</h3>
+    <p>Přihlaste se k odběru — budeme vás informovat o postupu.</p>
+    <a href="https://www.prvnireferendumvpraze4.cz#newsletter" class="cta-email-btn" target="_blank">Přihlásit se k odběru novinek</a>
+  </div>
+
+  <!-- SHARE -->
+  <div class="share-section">
+    <h3>Sdílejte svůj výsledek</h3>
+    <div class="share-buttons">
+      <a class="share-btn fb" id="shareFb" href="#" target="_blank">Facebook</a>
+      <a class="share-btn wa" id="shareWa" href="#" target="_blank">WhatsApp</a>
+      <button class="share-btn copy" onclick="copyResult()">Kopírovat text</button>
+    </div>
+  </div>
+
+  <div class="hashtag-banner">
+    <span>#milýJardo</span>
+  </div>
+
+  <div style="text-align:center;padding:24px;">
+    <div class="phone-badge">
+      📞 Mobilní sběr podpisů: <strong>604 820 574</strong>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Přípravný výbor místního referenda · Praha 4 · 2026<br>
+  <a href="https://www.prvnireferendumvpraze4.cz">prvnireferendumvpraze4.cz</a>
+</div>
+
+<script>
+  function calculate() {
+    const sqm = parseInt(document.getElementById('sqmInput').value) || 90;
+    const rent = sqm * 835;
+    const rentFormatted = rent.toLocaleString('cs-CZ');
+    const multiple = (rent / 17000).toFixed(1).replace('.', ',');
+
+    document.getElementById('resSqm').textContent = sqm;
+    document.getElementById('resSqm2').textContent = sqm;
+    document.getElementById('resRent').textContent = rentFormatted;
+    document.getElementById('resRentSmall').textContent = rentFormatted + ' Kč';
+    document.getElementById('resMultiple').textContent = multiple;
+
+    // Show result
+    const resultSection = document.getElementById('resultSection');
+    resultSection.classList.add('visible');
+    resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Update share links
+    const shareText = `Můj byt (${sqm} m²) by za "radniční nájem" stál ${rentFormatted} Kč měsíčně. Radnice Prahy 4 platí 835 Kč/m². Celkem už přes 1,1 miliardy. #milýJardo #NovaRadnice`;
+    const shareUrl = 'https://janzacekTNTG.github.io/milyjardo/';
+
+    document.getElementById('shareFb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+    document.getElementById('shareWa').href = `https://wa.me/?text=${encodeURIComponent(shareText + '\n' + shareUrl)}`;
+
+    // Store for copy
+    window._shareText = shareText + '\n' + shareUrl;
+  }
+
+  function copyResult() {
+    if (window._shareText) {
+      navigator.clipboard.writeText(window._shareText).then(() => {
+        const btn = event.target;
+        btn.textContent = 'Zkopírováno!';
+        setTimeout(() => btn.textContent = 'Kopírovat text', 2000);
+      });
+    }
+  }
+
+  // Enter key triggers calculation
+  document.getElementById('sqmInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') calculate();
+  });
+</script>
+
+</body>
+</html>
